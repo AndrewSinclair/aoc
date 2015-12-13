@@ -1,17 +1,20 @@
 (ns day-4.algo
   (:require [digest]))
 
-(defn md5
-  [msg]
-  (digest/md5 msg))
+(defn check-difficulty
+  [difficulty hashed]
+  (let [n-zeros (apply str (replicate difficulty "0"))]
+    (.startsWith hashed n-zeros)))
 
 (defn do-mining
   [input difficulty]
-  ;(first (for [nonce [(range)]
-  ;      :let [hashed (to-hex-string (md5 (str input nonce)))]
-  ;      :while (not check-difficulty difficulty hashed)]
-  ;  nonce)))
-  "TODO")
+  (inc
+    (last 
+      (for [nonce (range)
+            :let [hashed (digest/md5 (str input nonce))]
+            :while (not (check-difficulty difficulty hashed))]
+        nonce))))
+
 
 (defn do-algo-1
   "miner that finds nonce with difficulty 5 using md5"
