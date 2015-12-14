@@ -10,5 +10,4 @@
   [& args]
   (do
     (println (do-algo-1 (get-input input-name)))
-    (println (do-algo-2 (get-input input-name)))
-    ))
+    (println (do-algo-2 (get-input input-name)))))
