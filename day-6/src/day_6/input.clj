@@ -5,7 +5,8 @@
   "e.g., 660,55 through 986,197"
   [line]
   (let [[_ x1 y1 x2 y2] (re-find #".+?(\d+).+?(\d+).+?(\d+).+?(\d+)" line)]
-    {:pt1 {:x x1 :y y1} :pt2 {:x x2 :y y2}}))
+    {:pt1 {:x (Integer/parseInt x1) :y (Integer/parseInt y1)}
+     :pt2 {:x (Integer/parseInt x2) :y (Integer/parseInt y2)}}))
 
 (defn parse-input
   [line]
@@ -21,4 +22,4 @@
   "Returns input from a file"
   [file-name]
   (with-open [reader (clojure.java.io/reader file-name)]
-    (reduce conj '() (map parse-input (line-seq reader)))))
+    (reduce conj [] (map parse-input (line-seq reader)))))
