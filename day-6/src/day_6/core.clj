@@ -12,6 +12,6 @@
   [& args]
   (do
     ;(println (do-algo-1 (get-input "resources/test-input.txt") size))
-    (println (do-algo-1 (get-input input-name) size))
-    ;(println (do-algo-2 (get-input input-name)))
+    ;(println (do-algo-1 (get-input input-name) size))
+    (println (do-algo-2 (get-input input-name) size))
     ))

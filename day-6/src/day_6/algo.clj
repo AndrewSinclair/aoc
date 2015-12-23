@@ -20,19 +20,28 @@
       idx)))
 
 (defn to-command-fn
-  [command]
-    (cond
-      (= (:command command) :on)
-        (fn [_] :on)
-      (= (:command command) :off)
-        (fn [_] :off)
-      (= (:command command) :toggle)
-        (fn [state] (if (= state :on) :off :on))))
+  [command algo]
+    (if (= algo :1)
+      (cond
+        (= (:command command) :on)
+          (fn [_] :on)
+        (= (:command command) :off)
+          (fn [_] :off)
+        (= (:command command) :toggle)
+          (fn [state] (if (= state :on) :off :on)))
+      (cond
+        (= (:command command) :on)
+          (fn [brightness] (inc brightness))
+        (= (:command command) :off)
+          (fn [brightness] (if (> brightness 1) (dec brightness) 0))
+        (= (:command command) :toggle)
+          (fn [brightness] (+ 2 brightness))
+        )))
 
 (defn apply-commands
-  [lights commands size]
+  [lights commands size algo]
   (let [to-fn-idx-list (fn [command]
-                         {:fn (to-command-fn command)
+                         {:fn (to-command-fn command algo)
                           :indices (to-indices command size)})
         fn-idx-lists (map to-fn-idx-list commands)]
     (loop [[head & tail] fn-idx-lists
@@ -43,16 +52,19 @@
           (recur tail (reduce update-lights accum (:indices head))))))))
 
 (defn count-lights
-  [commands size]
-  (let [lights (vec (repeat (* size size) :off))]
-    (count (filter #(= :on %) (apply-commands lights commands size)))))
+  [commands size algo]
+  (if (= algo :1)
+    (let [lights (vec (repeat (* size size) :off))]
+      (count (filter #(= :on %) (apply-commands lights commands size algo))))
+    (let [lights (vec (repeat (* size size) 0))]
+      (reduce + (apply-commands lights commands size algo)))))
 
 (defn do-algo-1
   ""
   [commands size]
-  (count-lights commands size))
+  (count-lights commands size :1))
 
 (defn do-algo-2
   ""
-  [word]
-  nil)
+  [commands size]
+  (count-lights commands size :2))
