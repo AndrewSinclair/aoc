@@ -5,6 +5,8 @@
 
 (def input-name "resources/input.txt")
 
+(def my-inputs (get-input "resources/input-test.txt"))
+
 (defn -main
   "Day 7 - Advent of Code - Assemble 'Logic' circuits and calculate the output"
   [& args]

@@ -2,43 +2,47 @@
 
 (defn get-gate-fn
   [gate]
-  (let [unary-combinator  (fn [op-fn] (fn [input-a _ value-table] (op-fn (get-value value-table input-a))))
-        binary-combinator (fn [op-fn] (fn [input-a input-b value-table] (op-fn (get-value value-table input-a input-b))))]
-    (cond
-      (= gate :not)
-        (unary-combinator bit-not)
-      (= gate :and)
-        (binary-combinator bit-and)
-      (= gate :or)
-        (binary-combinator bit-or)
-      (= gate :lshift)
-        (binary-combinator bit-shift-left) ;how do I make sure this is a 16 bit integer?
-      (= gate :rshift)
-        (binary-combinator bit-shift-right))))
+  (cond
+    (= gate :not)
+      (fn [input-a _      ] (bit-and 0x0000FFFF (bit-not input-a)))
+    (= gate :and)
+      (fn [input-a input-b] (bit-and 0x0000FFFF (bit-and input-a input-b)))
+    (= gate :or)
+      (fn [input-a input-b] (bit-and 0x0000FFFF (bit-or input-a input-b)))
+    (= gate :lshift)
+      (fn [input-a input-b] (bit-and 0x0000FFFF (bit-shift-left input-a input-b)))
+    (= gate :rshift)
+      (fn [input-a input-b] (bit-and 0x0000FFFF (bit-shift-right input-a input-b)))
+    :else ; numeric constant
+      (fn [input-a _      ] (bit-and 0x0000FFFF input-a))))
 
-(defn create-initial-value-table
+(defn get-value-fn
+  [input-key]
+  (fn
+    [value-table]
+    (cond
+      (number? input-key)
+        input-key
+      (not (nil? input-key))
+        ((get value-table input-key) value-table))))
+
+(defn command-lookup-mapper
+  [command]
+  (let [output   (:output command)
+        input-a  (get-value-fn (first (:input command)))
+        input-b  (get-value-fn (second (:input command)))
+        gate-fn  (get-gate-fn (:gate command))
+        value-fn (fn [value-table] (gate-fn (input-a value-table) (input-b value-table)))]
+    [output value-fn]))
+
+(defn table
   [commands]
-  (into {} (map
-    (fn
-      [command]
-      (let [key          (:output command)
-            get-value-fn (fn [input-key] (fn [value-table] (if (number? input-key) input-key (get value-table input-key))))
-            input-a      (get-value-fn (first (:input command)))
-            input-b      (get-value-fn (second (:input command)))
-            gate-fn      (get-gate-fn (:gate command))
-            value        (fn [value-table] (gate-fn (input-a value-table) (input-b value-table)))]
-        [key value]))
-    commands)))
+  (into {} (map command-lookup-mapper commands)))
 
 (defn do-algo-1
   ""
   [commands]
-  (:a
-    (loop [value-table create-initial-value-table
-           curr-output :a]
-      ;(if curr output is a number return that)
-      ;(else find the value in the value-table)
-)))
+  ((get-value-fn "a") (table commands)))
 
 (defn do-algo-2
   ""
