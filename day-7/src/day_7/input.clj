@@ -1,21 +1,25 @@
 (ns day-7.input
   (:require [clojure.string :as str]))
 
-; (defn parse-coords
-;   [line]
-;   (let [[_ x1 y1 x2 y2] (re-find #".+?(\d+).+?(\d+).+?(\d+).+?(\d+)" line)]
-;     {:pt1 {:x (Integer/parseInt x1) :y (Integer/parseInt y1)}
-;      :pt2 {:x (Integer/parseInt x2) :y (Integer/parseInt y2)}}))
+(defn parse-gate-output
+  [line]
+  (re-find #"->\s+(\w+)" line))
 
-; (defn parse-input
-;   [line]
-;   (let [words (str/split line #" ")
-;         rectangle (parse-coords line)]
-;     (if (= (first words) "toggle")
-;       {:command :toggle :rect rectangle}
-;       (if (= (second words) "on")
-;         {:command :on  :rect rectangle}
-;         {:command :off :rect rectangle}))))
+(defn parse-input
+  [line]
+  (let [words  (str/split line #" ")
+        output (parse-gate-output line)]
+    (cond
+      (= (first words) "NOT"))
+        {:gate :not :input [(second words)] :output output}
+      (= (second words) "AND")
+        {:gate :and :input [(first words) (nth 3 words)] :output output}
+      (= (second words) "OR")
+        {:gate :or :input [(first words) (nth 3 words)] :output output}
+      (= (second words) "LSHIFT")
+        {:gate :lshift :input [(first words) (nth 3 words)] :output output}
+      (= (second words) "RSHIFT")
+        {:gate :rshift :input [(first words) (nth 3 words)] :output output}))
 
 (defn get-input
   "Returns input from a file"
