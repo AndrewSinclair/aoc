@@ -14,10 +14,6 @@
   [line]
   (second (re-find #"->\s+(\w+)" line)))
 
-(defn parse-signal
-  [words output]
-  {:gate nil :input [(Integer/parseInt (first words))] :output output})
-
 (defn parse-gate
   [words output]
   (let [first-word  (first words)
@@ -44,9 +40,7 @@
   [line]
   (let [words  (str/split line #" ")
         output (parse-gate-output line)]
-    (if (numeric? (first words))
-      (parse-signal words output)
-      (parse-gate words output))))
+    (parse-gate words output)))
 
 (defn get-input
   "Returns input from a file"

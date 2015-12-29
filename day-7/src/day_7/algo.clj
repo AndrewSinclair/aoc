@@ -39,10 +39,34 @@
   [commands]
   (into {} (map command-lookup-mapper commands)))
 
+(defn get-recusively-value
+  [command lookup-table]
+  ;need to find the inputs' values in the table
+  ;otherwise it's not there, recursively find it, but always update the table!
+  (let [input-a  (first  (:input command))
+        input-b  (second (:input command))
+        [value-a lookup-table] (if (nil? input-a) (get-recusively-value input-a lookup-table) input-a)
+        [value-b lookup-table] (if (nil? input-b) (get-recusively-value input-b lookup-table) input-b)
+        gate-fn  (get-gate-fn (:gate command))]
+    [(gate-fn value-a value-b) lookup-table]))
+
+(defn second-attempt
+  [commands]
+  (loop [[command & tail] commands
+         lookup-table {}]
+    (if-not (nil? command)
+      ;want to add a new key for the output,
+      ;plus want to get the inputs from the table already, else recursively find the input values
+      (let [new-key   (:output command)
+            [new-value lookup-table] (get-recusively-value command lookup-table)]
+        (recur tail (assoc lookup-table new-key new-value)))
+      lookup-table)))
+
 (defn do-algo-1
   ""
   [commands]
-  ((get-value-fn "a") (table commands)))
+  ;((get-value-fn "a") (table commands)))
+  (get (second-attempt commands) "a"))
 
 (defn do-algo-2
   ""
