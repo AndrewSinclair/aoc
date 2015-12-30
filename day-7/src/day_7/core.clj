@@ -4,6 +4,7 @@
   (:gen-class))
 
 (def input-name "resources/input.txt")
+(def input-name-2 "resources/input2.txt")
 
 (def my-inputs (get-input "resources/input-test.txt"))
 
@@ -12,5 +13,4 @@
   [& args]
   (do
     (println (do-algo-1 (get-input input-name)))
-    ;(println (do-algo-2 (get-input input-name)))
-    ))
+    (println (do-algo-2 (get-input input-name-2)))))

@@ -1,14 +1,6 @@
 (ns day-7.input
-  (:require [clojure.string :as str]))
-
-(defn numeric? [s]
-  "http://rosettacode.org/wiki/Determine_if_a_string_is_numeric#Clojure"
-  (if-let [s (seq s)]
-    (let [s (if (= (first s) \-) (next s) s)
-          s (drop-while #(Character/isDigit %) s)
-          s (if (= (first s) \.) (next s) s)
-          s (drop-while #(Character/isDigit %) s)]
-      (empty? s))))
+  (:require [clojure.string :as str])
+  (:use [day-7.utils]))
 
 (defn parse-gate-output
   [line]
