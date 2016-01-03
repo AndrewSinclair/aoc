@@ -6,12 +6,11 @@
     (let [letter-2 (first tail)
           letter-3 (second tail)]
       (if (nil? letter-3) false
-          (or false 
-            (let [coerce (fn [letter] (- (int letter) (int \a)))
-                  diff-1 (- (coerce letter-2) (coerce letter-1))
-                  diff-2 (- (coerce letter-3) (coerce letter-2))]
-              (or (and (= diff-1 1) (= diff-2 1))
-                (recur tail))))))))
+        (let [coerce (fn [letter] (- (int letter) (int \a)))
+              diff-1 (- (coerce letter-2) (coerce letter-1))
+              diff-2 (- (coerce letter-3) (coerce letter-2))]
+          (or (and (= diff-1 1) (= diff-2 1))
+            (recur tail)))))))
 
 (defn restricted-letters?
   [password]
@@ -38,8 +37,8 @@
   (map #(- (int %) (int \a)) letters))
 
 (defn ints-to-letters
-  "takes the list of ints from 0-25 and turns them into letters
-  note that 25 means a carryover"
+  "takes the list of ints from 0-26 and turns them into letters
+  note that 26 means a carryover"
   [int-list]
   (let [reversed (reverse int-list)]
     (reverse (
