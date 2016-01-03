@@ -1,7 +1,7 @@
 (ns day-10.algo)
 
 (defn look-and-say
-  [int-list]
+  [int-list]gg
   (let [partitioned (partition-by identity int-list)
         seq-length  (map #(list (count %) (first %)) partitioned)]
     (flatten seq-length)))
