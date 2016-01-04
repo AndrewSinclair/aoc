@@ -8,6 +8,11 @@ I used Leiningen to generate the application boilerplate, however I'm in the pro
 
 Status:
 
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
 1.
   1. complete
   2. complete
