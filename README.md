@@ -9,11 +9,11 @@ I used Leiningen to generate the application boilerplate, however I'm in the pro
 Status:
 
 1.
-  1.1. complete
-  1.2. complete
+  1. complete
+  2. complete
 2.
-  2.1. complete
-  2.2. complete
+  1. complete
+  2. complete
 
 12.
   1. in progress 2. in progress
