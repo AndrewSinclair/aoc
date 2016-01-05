@@ -2,5 +2,5 @@
   (:require [clojure.data.json :as json]))
 
 (defn get-input
-	[file-name]
-	(json/read-str (slurp file-name)))
+  [file-name]
+  (json/read-str (slurp file-name)))

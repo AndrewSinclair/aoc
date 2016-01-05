@@ -1,6 +1,6 @@
 (ns day-12.core
   (:use [day-12.input]
-  		[day-12.algo])
+        [day-12.algo])
   (:gen-class))
 
 (def file-name "resource/input.txt")
