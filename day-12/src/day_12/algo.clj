@@ -1,22 +1,21 @@
 (ns day-12.algo)
 
-(defmulti json-elem class)
-(defmethod json-elem java.util.Collection [c]
-  ;do collection
-  nil
-  )
+(defprotocol JsonElem
+  (json-elem [in] "This is not implementation, this is Doc text"))
 
-(defmethod json-elem java.util.HashMap [hm]
-  ;do hashmap
-  nil
-  )
-
-
-(defmethod json-elem :default [d]
-  ;do anything else
-  nil
-  )
-
+(extend-protocol JsonElem
+  clojure.lang.PersistentVector
+    (json-elem [in]
+      ;do vector
+      "found Vector")
+  clojure.lang.PersistentArrayMap
+    (json-elem [in]
+      ;do hashmap
+      "found Map")
+  java.lang.Object
+    (json-elem [in]
+      "found default")
+)
 
 (defn do-algo-1
   "I used regexr.com and a spreadsheet to solve this one..."
