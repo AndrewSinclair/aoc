@@ -19,6 +19,35 @@
       "found default")
 )
 
+(comment "added some pseudocode that should do the trick"
+  (defn return-map-made-of-same-keys-and-recursively-mapped-values
+    [hashmap]
+    (let [keys   (key hashmap)
+          values (map recursive-mapper (vals hashmap))]
+    (zipmap keys values)))
+
+  (defn return-vector-of-recursively-mapped-values
+    [items]
+    (vect (map recursive-mapper items)))
+
+  (defn red-attribute?
+    [ele]
+    (some #(= (second %) "red") ele))
+
+  (defn recursive-mapper
+  [ele]
+  (cond
+    (instance? map ele)
+      (if (red-attribute? ele)
+        nil
+      (return-map-made-of-same-keys-and-recursively-mapped-values ele))
+    (instance? vector ele)
+      (return-vector-of-recursively-mapped-values ele)
+    (instance? (:or string number nil) ele)
+      ele)
+    )
+)
+
 (defn filter-out-red
   [elem]
 
