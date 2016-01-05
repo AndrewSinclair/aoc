@@ -7,15 +7,22 @@
   clojure.lang.PersistentVector
     (json-elem [in]
       ;do vector
-      "found Vector")
+      (map json-elem in))
   clojure.lang.PersistentArrayMap
     (json-elem [in]
       ;do hashmap
-      "found Map")
+      (if (some #(= (second %) "red") in)
+        nil
+        )
   java.lang.Object
     (json-elem [in]
       "found default")
 )
+
+(defn filter-out-red
+  [elem]
+
+  )
 
 (defn do-algo-1
   "I used regexr.com and a spreadsheet to solve this one..."
@@ -24,4 +31,4 @@
 
 (defn do-algo-2
   [input]
-  nil)
+  (reduce + (get-numbers (filter-out-red input))))
