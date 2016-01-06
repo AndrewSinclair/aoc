@@ -1,6 +1,7 @@
 (ns day-9.algo)
 
 (defn permutations [s]
+  "Found this on Clojure Docs somewhere"
   (lazy-seq
     (if (seq (rest s))
       (apply concat (for [x s]

@@ -44,8 +44,3 @@
   "Recursively figure out the bit circuit"
   [commands]
   (get-recursively-value commands "a"))
-
-(defn do-algo-2
-  "Same as algo-1 except the original signal on wire b has changed"
-  [commands]
-  (get-recursively-value commands "a"))

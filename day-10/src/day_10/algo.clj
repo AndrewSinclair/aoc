@@ -1,12 +1,14 @@
 (ns day-10.algo)
 
 (defn look-and-say
-  [int-list]gg
+  [int-list]
   (let [partitioned (partition-by identity int-list)
         seq-length  (map #(list (count %) (first %)) partitioned)]
     (flatten seq-length)))
 
 (defn make-int-list
+  "turns a string of characters (persumably representing a number)
+  into a sequence of integers"
   [number]
   (map #(- (int %) (int \0)) number))
 
