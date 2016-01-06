@@ -11,7 +11,7 @@ Day    |  Part 1     | Part 2
 ------ | ----------- | -----------
 1      | complete    | complete
 2      | complete    | complete
-3      | complete    | MIA
+3      | complete    | comlete
 4      | complete    | complete
 5      | complete    | complete
 6      | complete    | complete
@@ -22,11 +22,6 @@ Day    |  Part 1     | Part 2
 11     | complete    | complete
 12     | complete    | complete
 13     | in progress |
-
-
-###NOTE:
-
-I appear to have misplaced the solutions for day 3. I guess I reset the local repo before committing. I'll redo the solutions for day 3 before moving on to day 13.
 
 ###BONUS:
 
