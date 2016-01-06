@@ -11,7 +11,7 @@ Day    |  Part 1     | Part 2
 ------ | ----------- | -----------
 1      | complete    | complete
 2      | complete    | complete
-3      | complete    | complete
+3      | complete    | MIA
 4      | complete    | complete
 5      | complete    | complete
 6      | complete    | complete
@@ -23,6 +23,10 @@ Day    |  Part 1     | Part 2
 12     | in progress | in progress
 
 
-##BONUS:
+###NOTE:
+
+I appear to have misplaced the solutions for day 3. I guess I reset the local repo before committing. I'll redo the solutions for day 3 before moving on to day 13.
+
+###BONUS:
 
 I have included an alternate Day 1 solution written in XSLT. It mainly uses XPath functions though to do string manipulation. I realize it's a bit silly to use XSLT for non-XML data.
