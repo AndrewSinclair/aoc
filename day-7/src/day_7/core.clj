@@ -9,8 +9,9 @@
 (def my-inputs (get-input "resources/input-test.txt"))
 
 (defn -main
-  "Day 7 - Advent of Code - Assemble 'Logic' circuits and calculate the output"
+  "Day 7 - Advent of Code - Assemble 'Logic' circuits and calculate the output
+  I manually updated the input and used the same algorithm in order to do part 2 today"
   [& args]
   (do
     (println (do-algo-1 (get-input input-name)))
-    (println (do-algo-2 (get-input input-name-2)))))
+    (println (do-algo-1 (get-input input-name-2)))))

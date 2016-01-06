@@ -11,7 +11,6 @@
   "Day 6 - Advent of Code - Draw patterns in 1000 by 1000 grid of 'lights'"
   [& args]
   (do
-    ;(println (do-algo-1 (get-input "resources/test-input.txt") size))
-    ;(println (do-algo-1 (get-input input-name) size))
+    (println (do-algo-1 (get-input input-name) size))
     (println (do-algo-2 (get-input input-name) size))
     ))

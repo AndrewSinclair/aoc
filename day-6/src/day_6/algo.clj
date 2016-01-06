@@ -1,6 +1,5 @@
 (ns day-6.algo)
 
-
 (defn to-indices
   [command size]
   (let [rect  (:rect command)
@@ -60,11 +59,11 @@
       (reduce + (apply-commands lights commands size algo)))))
 
 (defn do-algo-1
-  ""
+  "Counts the lights that are on after following the commands"
   [commands size]
   (count-lights commands size :1))
 
 (defn do-algo-2
-  ""
+  "Sums the brightness level of the lights after following the commands"
   [commands size]
   (count-lights commands size :2))

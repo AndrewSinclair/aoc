@@ -2,8 +2,11 @@
   (:use [day-1-1.algo])
   (:gen-class))
 
+(defn get-input [fileName]
+  (slurp fileName))
+
 (defn -main
-  "Advent of Code - day 1-1 solution."
+  "Advent of Code - Day 1 - Counts parentheses"
   [& args]
   (let [input (get-input "resources/input.txt")]
     (do

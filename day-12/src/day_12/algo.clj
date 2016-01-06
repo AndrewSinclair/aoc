@@ -1,63 +1,41 @@
 (ns day-12.algo)
 
-(defprotocol JsonElem
-  (json-elem [in] "This is not implementation, this is Doc text"))
+(defprotocol JsonElemFilterRed
+  (red-filter [ele]
+  "Recursively searches and replaces any JSON object with a red attribute to nil."))
 
-(extend-protocol JsonElem
+(extend-protocol JsonElemFilterRed
   clojure.lang.PersistentVector
-    (json-elem [in]
-      ;do vector
-      (map json-elem in))
-  clojure.lang.PersistentArrayMap
-    (json-elem [in]
-      ;do hashmap
-      (if (some #(= (second %) "red") in)
+    (red-filter [ele]
+      (apply vector (map red-filter ele)))
+
+  java.util.Map
+    (red-filter [ele]
+      (if (some #(= (second %) "red") ele)
         nil
-        )
+        (let [values (map red-filter (vals ele))]
+          (zipmap (keys ele) values))))
+
   java.lang.Object
-    (json-elem [in]
-      "found default")
-)
+    (red-filter [ele] ele))
 
-(comment "added some pseudocode that should do the trick"
-  (defn return-map-made-of-same-keys-and-recursively-mapped-values
-    [hashmap]
-    (let [keys   (key hashmap)
-          values (map recursive-mapper (vals hashmap))]
-    (zipmap keys values)))
-
-  (defn return-vector-of-recursively-mapped-values
-    [items]
-    (vect (map recursive-mapper items)))
-
-  (defn red-attribute?
-    [ele]
-    (some #(= (second %) "red") ele))
-
-  (defn recursive-mapper
-  [ele]
-  (cond
-    (instance? map ele)
-      (if (red-attribute? ele)
-        nil
-      (return-map-made-of-same-keys-and-recursively-mapped-values ele))
-    (instance? vector ele)
-      (return-vector-of-recursively-mapped-values ele)
-    (instance? (:or string number nil) ele)
-      ele)
-    )
-)
-
-(defn filter-out-red
+(defn get-numbers
+  "I'm treating the json like a string here, so I do regex-replace and string split
+  then map Integer.parseInt over the numbers"
   [elem]
-
-  )
+  (map #(Integer/parseInt %)
+    (butlast
+      (clojure.string/split
+        (clojure.string/replace (str elem) #".*?(-?\d+)" "$1\n")
+        #"\n"))))
 
 (defn do-algo-1
-  "I used regexr.com and a spreadsheet to solve this one..."
+  "Sum up all the numbers that appear in the JSON"
   [input]
-  191164)
+  (reduce + (get-numbers input)))
 
 (defn do-algo-2
+  "Filter out the JSON objects with red attributes,
+  then sum up all the remaining numbers that appear"
   [input]
-  (reduce + (get-numbers (filter-out-red input))))
+  (reduce + (get-numbers (red-filter input))))
