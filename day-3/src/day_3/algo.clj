@@ -10,7 +10,6 @@
     ))
 
 (defn update-log
-  "FIXME : is this the right way to work with Sets?"
   [house log]
   (if-not (contains? house log) (conj log house)))
 
@@ -23,13 +22,12 @@
       (let [next-house  (find-next-house direction curr-house)
             updated-log (update-log next-house visit-log)]
         (recur tail next-house updated-log)
-      visit-log)))
+      visit-log))))
 
 (defn do-algo-1
   "Figures out how many houses Santa visited based on the Elf's directions.
   "
   [instructions]
-  ; FIXME is count defined for sets?
   (count (unique-santa-visits instructions))
 
 (defn do-algo-2

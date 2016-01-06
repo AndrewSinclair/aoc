@@ -37,7 +37,7 @@
 
 (defn generate-pair-log
   "collect all pairs into a map of key -> letter, value -> count.
-   Triples count as pairs. Four or more in a row should just return some dummy value indicating it."
+   Triples count as pairs."
   [word]
   (loop [[letter1 & rest] word
          accum {}]
