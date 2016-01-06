@@ -14,6 +14,8 @@
 (def extra-quote #"\\\"")
 
 (defn count-in-memory
+  "Replaces special chars with dots so they aren't special anymore. Then counts all
+  remaining characters"
   [string]
   (let [string      (clojure.string/replace string extra-slash ".")
         string      (clojure.string/replace string hex-char    ".")
@@ -25,6 +27,8 @@
 (def encode-slash #"\\")
 
 (defn count-encoded
+  "Replaces special chars with dots so they aren't special anymore. Then counts all
+  remaining characters"
   [string]
   (let [string      (clojure.string/replace string encode-quote "..")
         string      (clojure.string/replace string encode-slash "..")
@@ -32,14 +36,14 @@
     final-count))
 
 (defn make-string-counts-vs-in-memory
-  ;returns a tuple like: [actual in-memory]
+  "returns a tuple like: [actual in-memory]"
   [string]
   (let [actual-count    (count-actual string)
         in-memory-count (count-in-memory string)]
     [actual-count in-memory-count]))
 
 (defn make-string-counts-vs-encoded
-  ;returns a tuple like: [encoded actual]
+  "returns a tuple like: [encoded actual]"
   [string]
   (let [actual-count    (count-actual  string)
         encoded-count   (count-encoded string)]
