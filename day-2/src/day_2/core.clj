@@ -8,7 +8,7 @@
   (line-seq (BufferedReader. (FileReader. file-name))))
 
 (defn -main
-  "Advent of Code - day 2 solutions."
+  "Advent of Code - Day 2 - Wrapping paper and bow measurements"
   [& args]
   (let [input (get-input "resources/input.txt")]
     (do
