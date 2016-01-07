@@ -2,10 +2,7 @@
   (:use [day-3.algo])
   (:gen-class))
 
-(import '(java.io BufferedReader FileReader))
-
-(defn get-input [file-name]
-  (line-seq (BufferedReader. (FileReader. file-name))))
+(defn get-input [file-name] (slurp file-name))
 
 (defn -main
   "Advent of Code - day 3 solutions."

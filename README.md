@@ -11,7 +11,7 @@ Day    |  Part 1     | Part 2
 ------ | ----------- | -----------
 1      | complete    | complete
 2      | complete    | complete
-3      | complete    | complete
+3      | complete    | comlete
 4      | complete    | complete
 5      | complete    | complete
 6      | complete    | complete
@@ -24,7 +24,6 @@ Day    |  Part 1     | Part 2
 13     | complete    | complete
 14     | in progress |
 
-
-##BONUS:
+###BONUS:
 
 I have included an alternate Day 1 solution written in XSLT. It mainly uses XPath functions though to do string manipulation. I realize it's a bit silly to use XSLT for non-XML data.
