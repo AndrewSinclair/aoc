@@ -5,9 +5,11 @@
 
 (def input-name "resources/input.txt")
 
+
 (defn -main
   "Day 14 - Advent of Code - Reindeer Olympics"
   [& args]
-  (do
-    (println (do-algo-1 (get-input input-name)))
-    (println (do-algo-2 (get-input input-name)))))
+  (let [total-time 2503]
+    (do
+      (println (do-algo-1 (get-input input-name) total-time))
+      (println (do-algo-2 (get-input input-name) total-time)))))
