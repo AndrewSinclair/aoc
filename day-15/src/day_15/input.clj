@@ -1,12 +1,11 @@
-(ns day-15.input
-  (:require [clojure.string :as str]))
+(ns day-15.input)
 
-(defn parse-input
-  [line]
-  )
+(def inputs
+  [[2  0 -2  0  3]
+   [0  5 -3  0  3]
+   [0  0  5 -1  8]
+   [0 -1  0  5  8]])   
 
-(defn get-input
-  "Returns input from a file"
-  [file-name]
-  (with-open [reader (clojure.java.io/reader file-name)]
-   (doall (map parse-input (line-seq reader)))))
+(def inputs-test
+  [[-1 -2  6  3  8]
+   [ 2  3 -2 -1  3]])

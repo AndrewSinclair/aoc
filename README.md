@@ -23,7 +23,7 @@ Day    |  Part 1     | Part 2
 12     | complete    | complete
 13     | complete    | complete
 14     | complete    | complete
-15     | in progress | 
+15     | complete    | in progress
 
 ###BONUS:
 
