@@ -4,7 +4,7 @@
   (:gen-class))
 
 (defn -main
-  "Day 15 - Advent Of Code - "
+  "Day 15 - Advent Of Code - Make the best cookies. Essentially same algorithmic pattern as 0-1 KP"
   [& args]
   (let [teaspoons 100
         calories  500]
