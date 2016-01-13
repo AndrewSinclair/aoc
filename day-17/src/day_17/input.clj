@@ -3,4 +3,4 @@
 (defn get-inputs
   [file-name]
   (with-open [reader (clojure.java.io/reader file-name)]
-   (doall (map #(Integer/parseInt %) (line-seq reader)))))
+   (apply vector (map #(Integer/parseInt %) (line-seq reader)))))
