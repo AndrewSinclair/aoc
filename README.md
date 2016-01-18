@@ -26,7 +26,7 @@ Day    |  Part 1     | Part 2
 15     | complete    | complete
 16     | complete    | complete
 17     | complete    | complete
-18     |             |
+18     | complete    | complete
 19     |             |
 20     | complete    | in progress
 
