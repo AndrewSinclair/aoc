@@ -63,14 +63,26 @@
                (m-sum-divisors (quot n factor)))))
         (recur n (next-prime p))))))
 
+(defn sum-of-divisors-of-n-less-than-k
+  [n k]
+  (reduce +
+    (for [i (range 2 k)
+          :when (= 0 (rem n i))]
+      i)))
+		
 (defn do-algo-1
   [puzzle-input]
-  (let [total-elf-visits (quot puzzle-input 10)]
-    (->>  (range)
-          (drop 2)
-          (filter #(->> % m-sum-divisors (<= total-elf-visits)))
-          first)))
+  ;(let [total-elf-visits (quot puzzle-input 10)]
+  ;  (->>  (range)
+  ;        (drop 2)
+  ;        (filter #(->> % m-sum-divisors (<= total-elf-visits)))
+  ;        first)))
+  nil)
 
 (defn do-algo-2
-  [input]
-  nil)
+  [puzzle-input]
+  (let [total-elf-visits (quot puzzle-input 11)]
+    (->>  (range)
+          (drop 2)
+          (filter #(>= total-elf-visits (- (m-sum-divisors %) (sum-of-divisors-of-n-less-than-k % (quot % 50)))))
+          first)))
