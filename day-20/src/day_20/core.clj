@@ -8,6 +8,7 @@
   "Day 20 - Advent of Code - Elves are delivering presents and you have to factor integers."
   [& args]
   (do
+	(println "Tuck in... this will take about 5 minutes")
     (println (do-algo-1 input))
     (println (do-algo-2 input))))
 

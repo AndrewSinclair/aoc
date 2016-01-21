@@ -72,17 +72,16 @@
 		
 (defn do-algo-1
   [puzzle-input]
-  ;(let [total-elf-visits (quot puzzle-input 10)]
-  ;  (->>  (range)
-  ;        (drop 2)
-  ;        (filter #(->> % m-sum-divisors (<= total-elf-visits)))
-  ;        first)))
-  nil)
+  (let [total-elf-visits (quot puzzle-input 10)]
+    (->>  (range)
+          (drop 2)
+          (filter #(->> % m-sum-divisors (<= total-elf-visits)))
+          first)))
 
 (defn do-algo-2
   [puzzle-input]
   (let [total-elf-visits (quot puzzle-input 11)]
     (->>  (range)
           (drop 2)
-          (filter #(>= total-elf-visits (- (m-sum-divisors %) (sum-of-divisors-of-n-less-than-k % (quot % 50)))))
+          (filter #(< total-elf-visits (- (m-sum-divisors %) (sum-of-divisors-of-n-less-than-k % (quot % 50)))))
           first)))
