@@ -4,10 +4,12 @@
   (:gen-class))
 
 (def file-name "resources/input.txt")
+(def test-file-name "resources/test.txt")
 
 (defn -main
   "Day 19 - Advent of Code"
   [& args]
-  (do
-    (println (do-algo-1 (get-input file-name)))
-    (println (do-algo-2 (get-input file-name)))))
+  (let [input (get-input file-name)]
+    (do
+      (println (do-algo-1 (get-input test-file-name)))
+      (println (do-algo-2 input)))))
