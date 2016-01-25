@@ -11,4 +11,3 @@
   (do
     (println (do-algo-1 (get-input file-name)))
     (println (do-algo-2 (get-input file-name)))))
-
