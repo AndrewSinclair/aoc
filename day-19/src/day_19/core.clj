@@ -11,5 +11,5 @@
   [& args]
   (let [input (get-input file-name)]
     (do
-      (println (do-algo-1 (get-input test-file-name)))
+      (println (do-algo-1 input))
       (println (do-algo-2 input)))))
