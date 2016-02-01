@@ -7,5 +7,5 @@
   "Advent of Code - Day 21 - RPG simulation"
   [& args]
   (do
-    (println (do-algo-1))
-    (println (do-algo-2))))
+    (println (do-algo-1 weapons armors rings player-stats boss-stats))
+    (println (do-algo-2 weapons armors rings player-stats boss-stats))))

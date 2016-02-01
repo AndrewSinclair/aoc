@@ -23,7 +23,7 @@
    [80 0 3]])
 
 (def player-stats
-  [100 0 0])
+  {:id :player :hp 100 :atk 0 :def 0})
 
 (def boss-stats
-  [104 8 1])
+  {:id :boss :hp 104 :atk 8 :def 1})
