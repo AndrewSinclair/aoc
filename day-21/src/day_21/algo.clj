@@ -33,31 +33,39 @@
   ([coll1 coll2 coll3]
   (cross (cross coll1 coll2) coll3)))
 
-(defn equip
-  [player loadouts]
-  (loop [[item & tail] loadouts
-        stats  player]
-    (let [[item-gp item-attack item-defense] item
-          {play-gp :gp play-attack :atk play-defense :def :or {play-gp 0}} stats
-          next-stats (->
-                       stats
-                       (assoc :gp  (+ play-gp item-gp))
-                       (assoc :atk (+ play-attack item-attack))
-                       (assoc :def (+ play-defense item-defense)))]
-      (if tail
-        (recur tail next-stats)
-        next-stats))))
+(defn equip-item
+  [player loadout]
+  (loop [[item & tail] loadout
+      stats  player]
+  (let [[item-gp item-attack item-defense] item
+        {play-gp :gp play-attack :atk play-defense :def :or {play-gp 0}} stats
+        next-stats (->
+                     stats
+                     (assoc :gp  (+ play-gp item-gp))
+                     (assoc :atk (+ play-attack item-attack))
+                     (assoc :def (+ play-defense item-defense)))]
+    (if tail
+      (recur tail next-stats)
+      next-stats))))
 
-(defn do-algo-1
-  [weapons armors rings player boss]
+(defn equip-loadout
+  [player loadouts]
+  (map (partial equip-item player) loadouts))
+
+(defn algo
+  [weapons armors rings player boss optimization-fn desired-winner]
   (let [loadouts      (cross (choose 1 weapons)
                              (choose 0 1 armors)
                              (choose 0 2 rings))
-        player-builds (equip player loadouts)]
+        player-builds (equip-loadout player loadouts)]
     (->> player-builds
-         (filter #(= :player (simulate-fight % boss)))
-         (apply min-key :gp))))
+         (filter #(= desired-winner (simulate-fight % boss)))
+         (apply optimization-fn :gp))))
+
+(defn do-algo-1
+  [weapons armors rings player boss]
+  (algo weapons armors rings player boss min-key :player))
 
 (defn do-algo-2
   [weapons armors rings player boss]
-  nil)
+  (algo weapons armors rings player boss max-key :boss))
