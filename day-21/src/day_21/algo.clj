@@ -22,12 +22,13 @@
     (combo/combinations coll n))
 
   ([n m coll]
-    (apply concat (for [i (range n m)]
-      (combo/combinations coll i)))))
+    (apply concat
+      (for [i (range n (inc m))]
+        (combo/combinations coll i)))))
 
 (defn cross
   ([coll1 coll2]
-  (apply concat (map (fn [outer] (map (fn [inner] (vector inner outer)) coll1)) coll2)))
+  (map #(apply concat %) (apply concat (map (fn [outer] (map (fn [inner] (vector inner outer)) coll1)) coll2))))
 
   ([coll1 coll2 coll3]
   (cross (cross coll1 coll2) coll3)))
@@ -37,7 +38,7 @@
   (loop [[item & tail] loadouts
         stats  player]
     (let [[item-gp item-attack item-defense] item
-          {:gp play-gp :atk play-attack :def play-defense} stats
+          {play-gp :gp play-attack :atk play-defense :def :or {play-gp 0}} stats
           next-stats (->
                        stats
                        (assoc :gp  (+ play-gp item-gp))
@@ -55,7 +56,7 @@
         player-builds (equip player loadouts)]
     (->> player-builds
          (filter #(= :player (simulate-fight % boss)))
-         (min-by :gp))))
+         (apply min-key :gp))))
 
 (defn do-algo-2
   [weapons armors rings player boss]
