@@ -25,7 +25,7 @@
 
 
 (defn cast-spell
-  "This needs to choose a spell somehow"
+  "TODO: This needs to choose a spell somehow"
   [attacker defender spells]
 
   [attacker defender])
@@ -34,7 +34,7 @@
   [attacker defender spells]
   (let [attacker (do-effects attacker)
         defender (do-effects defender)
-        offense  (if (wizard? attacker) cast-spell swing-weapon)]
+        offense  (if (wizard? attacker) cast-spell swing-weapon)] ; TODO: instead of creating one offense, have the code collect all possible offenses and subsequently recurse on each
     (cond
       (dead? defender)
         (:id attacker)

@@ -3,6 +3,8 @@
         [day-23.algo])
   (:gen-class))
 
+(def file-name "resources/input.txt")
+
 (defn -main
   "Advent of Code - Day 23"
   [& args]

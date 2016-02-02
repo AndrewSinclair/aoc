@@ -31,7 +31,7 @@ Day    |  Part 1     | Part 2
 20     | complete    | complete
 21     | complete    | complete
 22     | in-progress |          
-23     |             |          
+23     | complete    | complete
 24     |             |          
 25     |             |          
 
