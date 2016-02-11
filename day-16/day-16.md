@@ -1,19 +1,22 @@
 #Part 1
 
 ##Regexes
-cats: 7
-trees: 3
-pomeranians: 3
-goldfish: 5
-children: 3
-samoyeds: 2
-akitas: 0
-vizslas: 0
-cars: 2
-perfumes: 1
+`cats: 7`
+`trees: 3`
+`pomeranians: 3`
+`goldfish: 5`
+`children: 3`
+`samoyeds: 2`
+`akitas: 0`
+`vizslas: 0`
+`cars: 2`
+`perfumes: 1`
 
 ##Regexes Combined
+```
 (cats: 7|trees: 3|pomeranians: 3|goldfish: 5|children: 3|samoyeds: 2|akitas: 0|vizslas: 0|cars: 2|perfumes: 1).*?(cats: 7|trees: 3|pomeranians: 3|goldfish: 5|children: 3|samoyeds: 2|akitas: 0|vizslas: 0|cars: 2|perfumes: 1).*?(cats: 7|trees: 3|pomeranians: 3|goldfish: 5|children: 3|samoyeds: 2|akitas: 0|vizslas: 0|cars: 2|perfumes: 1)
+```
+
 Matches Sue 373
 
 
@@ -32,7 +35,10 @@ cars: 2
 perfumes: 1
 
 ##Regexes Combined
+```
 (cats: ([8-9]|[1-9]\d{1,})|trees: ([4-9]|[1-9]\d{1,})|pomeranians: [0-2][^\d]|goldfish: [0-4][^\d]|children: 3|samoyeds: 2|akitas: 0|vizslas: 0|cars: 2|perfumes: 1).*?(cats: ([8-9]|[1-9]\d{1,})|trees: ([4-9]|[1-9]\d{1,})|pomeranians: [0-2][^\d]|goldfish: [0-4][^\d]|children: 3|samoyeds: 2|akitas: 0|vizslas: 0|cars: 2|perfumes: 1).*?(cats: ([8-9]|[1-9]\d{1,})|trees: ([4-9]|[1-9]\d{1,})|pomeranians: [0-2][^\d]|goldfish: [0-4][^\d]|children: 3|samoyeds: 2|akitas: 0|vizslas: 0|cars: 2|perfumes: 1)
+```
+
 Matches Sue 260
 
 
