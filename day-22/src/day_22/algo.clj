@@ -2,49 +2,60 @@
 
 (defn calc-damage
   [attack defense]
-  (let [diff  (- attack defense)]
+  (let [diff (- attack defense)]
     (if (> diff 0)
       diff
       1)))
 
 (defn wizard?
-  [fighter]
-  (= (:id fighter) :player))
+  [contender]
+  (= (:id contender) :player))
 
 (defn dead?
-  [fighter]
-  (>= 0 (:hp fighter)))
+  [contender]
+  (>= 0 (:hp contender)))
 
 (defn swing-weapon
   [attacker defender]
-  (let [attack (:atk attacker)
-        defense (:def defender)
-        damage (calc-weapon-damage attack defense)
+  (let [attack     (:atk attacker)
+        defense    (:def defender)
+        damage     (calc-damage attack defense)
         hp-updated (- (:hp defender) damage)]
     [attacker (assoc defender :hp hp-updated)]))
 
 
-(defn cast-spell
-  "TODO: This needs to choose a spell somehow"
+(defn get-spells
+  "Returns all spells applicable on this current turn"
   [attacker defender spells]
+  [nil]
+  )
 
-  [attacker defender])
+(defn update-effects
+  [contender]
+  nil
+  )
 
 (defn simulate-fight
   [attacker defender spells]
-  (let [attacker (do-effects attacker)
-        defender (do-effects defender)
-        offense  (if (wizard? attacker) cast-spell swing-weapon)] ; TODO: instead of creating one offense, have the code collect all possible offenses and subsequently recurse on each
+  (let [attacker (update-effects attacker)
+        defender (update-effects defender)
+        offenses (if (wizard? attacker) (get-spells attacker defender spells) [swing-weapon])]
     (cond
       (dead? defender)
         (:id attacker)
       (dead? attacker)
         (:id defender)
       :else
-        (let [[attacker defender] (offense attackers defender)]
-          (if (dead? defender)
-            (:id attacker)
-            (recur defender attacker spells))))))
+        (let [attack-choices (map #(% attacker defender) offenses)]
+          (loop [[chosen-attack & tail] attack-choices
+                  attacker attacker
+                  defender defender]
+            (if chosen-attack
+              (let [[attacker defender] (chosen-attack attacker defender)]
+                (if (dead? defender)
+                  (:id attacker)
+                  (recur tail attacker defender))
+              (simulate-fight defender attacker spells))))))))
 
 (defn do-algo-1
   []
