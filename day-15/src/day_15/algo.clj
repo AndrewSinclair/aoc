@@ -10,14 +10,17 @@
      details : [[-1 2 3 4] [5 -2 1 3] ...]
      distro  : [23 25 26 26]
   "
-  [ingredient-details ingredient-distribution max-calories]
+  ([ingredient-details ingredient-distribution]
+    (score-cookie ingredient-details ingredient-distribution nil))
+
+  ([ingredient-details ingredient-distribution max-calories]
   (let [property-values-per-cookie (map #(map (fn [two] (* %1 two)) %2) ingredient-distribution (map butlast ingredient-details))
         all-property-values        (apply map + property-values-per-cookie)
         property-values            (map #(if (neg? %) 0 %) all-property-values)
         calories                   (get-calories ingredient-details ingredient-distribution)]
     (if (and max-calories (> calories max-calories))
       0
-      (apply * property-values))))
+      (apply * property-values)))))
 
 (defn inc-all
   [ingredient-distribution]
@@ -27,18 +30,18 @@
 
 (defn choose-best
   "Map ingredient choices to cookie scores, get the index of the highest score, then return the ingredient list at that index"
-  [ingredient-details ingredient-distributions max-calories]
+  ([ingredient-details ingredient-distributions]
+    (choose-best ingredient-details ingredient-distributions nil))
+
+  ([ingredient-details ingredient-distributions max-calories]
   (let [cookie-scores (map #(score-cookie ingredient-details % max-calories) ingredient-distributions)
         max-score     (apply max cookie-scores)
         index-of-max  (.indexOf cookie-scores max-score)]
-    (nth ingredient-distributions index-of-max)))
+    (nth ingredient-distributions index-of-max))))
 
 (defn choose-best-score
   [ingredient-details ingredient-distributions max-calories]
-  (let [cookie-scores (map #(second %) ingredient-distributions)
-        max-score     (apply max cookie-scores)
-        index-of-max  (.indexOf cookie-scores max-score)]
-    (nth ingredient-distributions index-of-max)))
+  (apply max-key #(second %) ingredient-distributions))
 
 (def backtrack-algo 
   (memoize (fn [curr-distribution score total-tsp max-calories inputs]
@@ -56,8 +59,8 @@
   ([inputs total-tsp]
     (let [num-ingredients      (count inputs)
           initial-distribution (apply vector (replicate num-ingredients 1))
-          best-distribution    (nth (iterate #(choose-best inputs (inc-all %) nil) initial-distribution) (- total-tsp num-ingredients))]
-    (score-cookie inputs (apply vector best-distribution) nil)))
+          best-distribution    (nth (iterate #(choose-best inputs (inc-all %)) initial-distribution) (- total-tsp num-ingredients))]
+      (score-cookie inputs (apply vector best-distribution))))
 
   ; Backtracking solution - Needed for when there's a Calorie restriction
   ([inputs total-tsp max-calories]
