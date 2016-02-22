@@ -27,13 +27,13 @@ Day    |  Part 1     | Part 2
 16     | complete    | complete
 17     | complete    | complete
 18     | complete    | complete
-19     | complete    | in-progress
+19     | complete    | complete
 20     | complete    | complete
 21     | complete    | complete
-22     | in-progress |          
+22     | complete    | complete
 23     | complete    | complete
 24     | complete    | complete
-25     |             |          
+25     | complete    | complete
 
 ###BONUS:
 

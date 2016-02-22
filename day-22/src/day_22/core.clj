@@ -7,5 +7,5 @@
   "Advent of Code - Day 22 - RPG part deux"
   [& args]
   (do
-    (println (do-algo-1))
-    (println (do-algo-2))))
+    (println (do-algo-1 wizard fighter))
+    (println (do-algo-2 wizard-hard fighter))))
